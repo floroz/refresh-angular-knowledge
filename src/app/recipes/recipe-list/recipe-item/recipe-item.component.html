@@ -1,7 +1,11 @@
-<div>
- <a routerLink="/recipes/{{recipe.id}}">
-  <h3>{{ recipe.name }}</h3>
-  <p>{{recipe.description }}</p>
-  <img [src]="recipe.imagePath" alt="" [style]="{maxWidth: '300px'}">
- </a>
-</div>
+
+  <a routerLink="/recipes/{{recipe.id}}" class="list-group-item clearfix">
+    <div class="pull-left">
+      <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+      <p class="list-group-item-text">{{recipe.description }}</p>
+    </div>
+      <span class="pull-right">
+        <img [src]="recipe.imagePath" [alt]="recipe.name" class="image-responsive" style="max-height: 50px;">
+      </span>
+  </a>
+
