@@ -6,9 +6,17 @@ import { Ingredient } from '../models/ingredient.model';
   providedIn: 'root',
 })
 export class IngredientService {
+  ingredients: Ingredient[] = [
+    new Ingredient('Garlic', 1),
+    new Ingredient('Flour', 20),
+  ];
   constructor() {}
 
   getIngredients(recipeId: string) {
-    return of([new Ingredient('Garlic', 1), new Ingredient('Flour', 20)]);
+    return of(this.ingredients);
+  }
+
+  addIngredient(name: string, amount: number) {
+    this.ingredients.push(new Ingredient(name, amount));
   }
 }
