@@ -31,25 +31,9 @@ export class RecipeDetailComponent implements OnInit {
         this.recipe = recipe;
       }
     });
-
-    // this.routeSub = this.route.params
-    //   .pipe(
-    //     map((params): string | undefined => params['id']),
-    //     switchMap((id) => this.recipesService.getRecipeById(id ?? ''))
-    //   )
-    //   .subscribe((recipe) => {
-    //     console.log(recipe);
-    //     if (!recipe) {
-    //       this.router.navigate(['/404']);
-    //     } else {
-    //       this.recipe = recipe;
-    //     }
-    //   });
   }
 
-  ngOnDestroy() {
-    // this.routeSub.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   onShoppingListAdd(event: Event) {
     event.preventDefault();

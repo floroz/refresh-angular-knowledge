@@ -12,6 +12,8 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { NotFound404Component } from './not-found404/not-found404.component';
 import { DropdownDirective } from './shared/directives/dropdown.directive';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { NoRecipeSelectedComponent } from './recipes/no-recipe-selected/no-recipe-selected.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { DropdownDirective } from './shared/directives/dropdown.directive';
     ShoppingEditComponent,
     NotFound404Component,
     DropdownDirective,
+    RecipeEditComponent,
+    NoRecipeSelectedComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
