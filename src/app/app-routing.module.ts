@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFound404Component } from './not-found404/not-found404.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipesComponent } from './recipes/recipes.component';
+import { RecipeResolverService } from './shared/services/recipe-resolver.service';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 const routes: Routes = [
@@ -18,6 +19,9 @@ const routes: Routes = [
   {
     path: 'recipes/:id',
     component: RecipeDetailComponent,
+    resolve: {
+      recipe: RecipeResolverService,
+    },
   },
   {
     path: '',

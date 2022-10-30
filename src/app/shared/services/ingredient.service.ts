@@ -6,17 +6,25 @@ import { Ingredient } from '../models/ingredient.model';
   providedIn: 'root',
 })
 export class IngredientService {
-  ingredients: Ingredient[] = [
-    new Ingredient('Garlic', 1),
-    new Ingredient('Flour', 20),
-  ];
+  ingredients: Map<string, Ingredient> = new Map();
   constructor() {}
 
-  getIngredients(recipeId: string) {
-    return of(this.ingredients);
+  getIngredients() {
+    return of(Array.from(this.ingredients.values()));
   }
 
-  addIngredient(name: string, amount: number) {
-    this.ingredients.push(new Ingredient(name, amount));
+  addIngredient(ingredient: Ingredient) {
+    const ing = this.ingredients.get(ingredient.name);
+
+    if (ing) {
+      // if an ingredient is already in the list
+      ing.amount += ingredient.amount;
+    } else {
+      this.ingredients.set(ingredient.name, ingredient);
+    }
+  }
+
+  clearIngredients() {
+    this.ingredients = new Map();
   }
 }
