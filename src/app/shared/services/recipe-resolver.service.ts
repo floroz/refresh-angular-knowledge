@@ -17,7 +17,7 @@ export class RecipeResolverService implements Resolve<Recipe | undefined> {
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<Recipe | undefined> {
+  ): Recipe | undefined {
     const recipeId = route.params['id'];
 
     return this.recipeService.getRecipeById(recipeId);

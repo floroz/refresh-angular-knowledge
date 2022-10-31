@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Ingredient } from '../shared/models/ingredient.model';
 import { Recipe } from './recipe.model';
 
@@ -7,7 +7,9 @@ import { Recipe } from './recipe.model';
   providedIn: 'root',
 })
 export class RecipesService {
-  recipes: Recipe[] = [
+  recipeSubject: Subject<Recipe[]> = new Subject();
+
+  private recipes: Recipe[] = [
     new Recipe(
       'pizza-1',
       'pizza',
@@ -25,13 +27,13 @@ export class RecipesService {
   ];
   constructor() {}
 
-  getRecepies(): Observable<Recipe[]> {
-    return of(this.recipes);
+  getRecepies(): Recipe[] {
+    return this.recipes;
   }
 
-  getRecipeById(recipeId: string): Observable<Recipe | undefined> {
+  getRecipeById(recipeId: string): Recipe | undefined {
     const rec = this.recipes.find((recipe) => recipe.id === recipeId);
 
-    return of(rec);
+    return rec;
   }
 }
