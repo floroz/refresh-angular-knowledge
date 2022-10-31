@@ -17,7 +17,6 @@ export class RecipeDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private recipesService: RecipesService,
     private ingredientsService: IngredientService
   ) {}
 

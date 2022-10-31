@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { map, of, Subject } from 'rxjs';
 import { Ingredient } from '../models/ingredient.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IngredientService {
-  ingredients: Map<string, Ingredient> = new Map();
+  private ingredients: Map<string, Ingredient> = new Map();
+
+  ingredientSubject: Subject<Ingredient[]> = new Subject();
   constructor() {}
 
-  getIngredients() {
-    return of(Array.from(this.ingredients.values()));
+  getIngredients(): Ingredient[] {
+    return [...this.ingredients.values()];
   }
 
   addIngredient(ingredient: Ingredient) {
@@ -22,6 +24,8 @@ export class IngredientService {
     } else {
       this.ingredients.set(ingredient.name, ingredient);
     }
+
+    this.ingredientSubject.next([...this.ingredients.values()]);
   }
 
   clearIngredients() {
