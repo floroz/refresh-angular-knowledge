@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { IngredientService } from 'src/app/shared/services/ingredient.service';
 
@@ -15,12 +16,15 @@ export class ShoppingEditComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(event: SubmitEvent) {
-    event.preventDefault();
-
-    const name = this.nameInput.nativeElement.value;
-    const amount = +this.amountInput.nativeElement.value;
+  onAddIng(ngForm: NgForm) {
+    const { name, amount } = ngForm.value;
 
     this.ingredientService.addIngredient(new Ingredient(name, amount));
   }
+
+  onClear(ngForm: NgForm) {
+    ngForm.resetForm();
+  }
+
+  onSubmit(ngForm: NgForm) {}
 }

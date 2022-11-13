@@ -14,6 +14,7 @@ import { NotFound404Component } from './not-found404/not-found404.component';
 import { DropdownDirective } from './shared/directives/dropdown.directive';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { NoRecipeSelectedComponent } from './recipes/no-recipe-selected/no-recipe-selected.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { NoRecipeSelectedComponent } from './recipes/no-recipe-selected/no-recip
     RecipeEditComponent,
     NoRecipeSelectedComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

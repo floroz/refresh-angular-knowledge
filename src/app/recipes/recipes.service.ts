@@ -36,4 +36,18 @@ export class RecipesService {
 
     return rec;
   }
+
+  deleteRecipe(recipeId: string): Recipe {
+    const idx = this.recipes.findIndex((rec) => rec.id === recipeId);
+
+    if (idx == -1) {
+      throw new Error('recipe not found');
+    }
+
+    const recipe = this.recipes[idx];
+
+    this.recipes.splice(idx, 1);
+
+    return recipe;
+  }
 }

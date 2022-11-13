@@ -45,4 +45,6 @@ export class RecipeDetailComponent implements OnInit {
     // navigate to shopping page
     this.router.navigateByUrl('/shopping-list');
   }
+
+  onDeleteRecipe() {}
 }

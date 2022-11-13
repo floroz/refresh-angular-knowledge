@@ -37,7 +37,6 @@ const routes: Routes = [
           recipe: RecipeResolverService,
         },
       },
-
       {
         path: ':id/edit',
         component: RecipeEditComponent,
