@@ -134,6 +134,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     });
   }
 
+  private returnToRecipeDetails() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
   private createRecipe(dto: CreateRecipeDto) {
     this.recipeService.createRecipe(dto);
   }
@@ -143,6 +147,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
   onCancel() {
     this.recipeForm.reset();
+    this.returnToRecipeDetails();
   }
 
   onSubmit() {
@@ -155,5 +160,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         ...this.recipeForm.value,
       });
     }
+
+    this.returnToRecipeDetails();
   }
 }
