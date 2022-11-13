@@ -13,9 +13,9 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="button" (click)="onAddIng(f)" [disabled]="!f.valid">{{ isEditing ? 'Update' : 'Add' }}</button>
+          <button class="btn btn-success" type="button" (click)="onAdd()" [disabled]="!f.valid">{{ isEditing ? 'Update' : 'Add' }}</button>
           <button class="btn btn-danger" type="button" [disabled]="!isEditing" (click)="onDelete()">Delete</button>
-          <button class="btn btn-info" type="button" (click)="onClear(f)">Clear</button>
+          <button class="btn btn-info" type="button" (click)="onClear()">Clear</button>
         </div>
       </div>
     </form>

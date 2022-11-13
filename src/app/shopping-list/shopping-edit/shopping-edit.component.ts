@@ -19,8 +19,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild('f', { static: false }) form: NgForm;
   subscription: Subscription = new Subscription();
   isEditing = false;
-  selectedId: number;
-  selectedItem: Ingredient;
+  selectedId?: number | undefined;
+  selectedItem?: Ingredient | undefined;
 
   constructor(private ingredientService: IngredientService) {}
 
@@ -42,24 +42,46 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onAddIng(ngForm: NgForm) {
-    const { name, amount } = ngForm.value;
+  onUpdate(amount: number) {}
+
+  onAdd() {
+    const { name, amount } = this.form.value;
 
     if (this.isEditing) {
-      // update
-      this.ingredientService.update(this.selectedId, amount);
+      amount === 0 ? this.delete() : this.update(amount);
     } else {
-      // add
-      this.ingredientService.add(new Ingredient(name, amount));
+      this.add(name, amount);
     }
+
+    this.reset();
   }
 
-  onClear(ngForm: NgForm) {
-    ngForm.resetForm();
+  private add(name: string, amount: number) {
+    this.ingredientService.add(new Ingredient(name, amount));
+  }
+
+  private update(amount: number) {
+    this.ingredientService.update(this.selectedId!, amount);
+  }
+
+  private delete() {
+    this.ingredientService.delete(this.selectedId!);
+  }
+
+  private reset() {
+    this.isEditing = false;
+    this.selectedId = undefined;
+    this.selectedItem = undefined;
+    this.form.resetForm();
+  }
+
+  onClear() {
+    this.reset();
   }
 
   onDelete() {
-    this.ingredientService.delete(this.selectedId);
+    this.delete();
+    this.reset();
   }
 
   onSubmit(ngForm: NgForm) {}
