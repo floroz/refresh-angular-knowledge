@@ -1,3 +1,6 @@
 export class Ingredient {
-  constructor(public name: string, public amount: number) {}
+  id: number;
+  constructor(public name: string, public amount: number) {
+    this.id = Math.random() * 10000;
+  }
 }

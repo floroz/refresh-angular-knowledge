@@ -38,9 +38,7 @@ export class RecipeDetailComponent implements OnInit {
     event.preventDefault();
 
     // add ings to shopping service
-    this.recipe.ingredients.forEach((ing) =>
-      this.ingredientsService.addIngredient(ing)
-    );
+    this.recipe.ingredients.forEach((ing) => this.ingredientsService.add(ing));
 
     // navigate to shopping page
     this.router.navigateByUrl('/shopping-list');

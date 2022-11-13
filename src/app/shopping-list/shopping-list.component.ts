@@ -13,7 +13,7 @@ export class ShoppingListComponent implements OnInit {
   constructor(private ingredientService: IngredientService) {}
 
   ngOnInit(): void {
-    const initialIngredients = this.ingredientService.getIngredients();
+    const initialIngredients = this.ingredientService.findAll();
 
     if (initialIngredients.length) {
       this.ingredients = initialIngredients;
@@ -22,5 +22,9 @@ export class ShoppingListComponent implements OnInit {
     this.ingredientService.ingredientSubject.subscribe(
       (ings) => (this.ingredients = ings)
     );
+  }
+
+  onEdit(id: number) {
+    this.ingredientService.startedEditing.next(id);
   }
 }
