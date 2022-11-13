@@ -1,5 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { map, mergeMap, Subscription, zip } from 'rxjs';
 import { Recipe } from '../recipe.model';
@@ -58,28 +64,59 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  get formIngredients() {
+    const controls = (this.recipeForm.controls['ingredients'] as FormArray)
+      .controls;
+    return controls;
+  }
+
   private initForm() {
-    let initialValues: Omit<Recipe, 'id'> = {
+    let initialValues = {
       name: '',
       imagePath: '',
       description: '',
-      ingredients: [],
+      ingredients: new FormArray([] as any[]),
     };
 
     if (this.isEditMode) {
       const { name, description, imagePath, ingredients } = this.recipe;
+
+      const formArray = [];
+
+      for (let ing of ingredients) {
+        const group = new FormGroup({
+          name: new FormControl(ing.name),
+          amount: new FormControl(ing.amount),
+        });
+
+        formArray.push(group);
+      }
+
       initialValues = {
         name,
         description,
         imagePath,
-        ingredients,
+        ingredients: new FormArray(formArray),
       };
+    } else {
+      initialValues.ingredients = new FormArray([
+        new FormGroup({
+          name: new FormControl(''),
+          amount: new FormControl(0),
+        }),
+      ]);
     }
 
-    this.recipeForm = this.fb.group({
-      name: [initialValues.name],
-      imagePath: [initialValues.imagePath],
-      description: [initialValues.description],
+    this.recipeForm = new FormGroup({
+      name: new FormControl(initialValues.name, [Validators.required]),
+      imagePath: new FormControl(initialValues.imagePath, [
+        Validators.required,
+      ]),
+      description: new FormControl(initialValues.description, [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
+      ingredients: initialValues.ingredients,
     });
   }
 }
