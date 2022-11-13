@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { map, mergeMap, Subscription, zip } from 'rxjs';
 import { Recipe } from '../recipe.model';
+import { CreateRecipeDto, RecipesService } from '../recipes.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -24,7 +25,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private recipeService: RecipesService
   ) {}
 
   private loadAddNewForm() {
@@ -62,6 +63,19 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onAddNewIngredient() {
+    (this.recipeForm.get('ingredients') as FormArray).push(
+      new FormGroup({
+        name: new FormControl(''),
+        amount: new FormControl(0),
+      })
+    );
+  }
+
+  onDeleteIngredient(index: number) {
+    (this.recipeForm.get('ingredients') as FormArray).removeAt(index);
   }
 
   get formIngredients() {
@@ -118,5 +132,27 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       ]),
       ingredients: initialValues.ingredients,
     });
+  }
+
+  private createRecipe(dto: CreateRecipeDto) {
+    this.recipeService.createRecipe(dto);
+  }
+
+  private updateRecipe(dto: CreateRecipeDto) {
+    this.recipeService.updateRecipe(this.recipe.id, dto);
+  }
+
+  onSubmit() {
+    this.recipeForm.value;
+
+    if (this.isEditMode) {
+      this.updateRecipe({
+        ...this.recipeForm.value,
+      });
+    } else {
+      this.createRecipe({
+        ...this.recipeForm.value,
+      });
+    }
   }
 }
